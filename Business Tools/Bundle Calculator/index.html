@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <body style="margin-left: 12pt;">
+        <h2>Bundle Calculator</h2>
+        <h3>Explanation:</h3>
+        <p>This tool is just like the Margin Calculator tool; however, this will help you calculate margins on a bundle of items - in this case, two items.</p>
+        <hr>
+        <div style="display: flex; gap: 40px; align-self: center;">
+
+            <!-- Item 1 -->
+            <div style="flex: 1;">
+                <h3>Item 1:</h3>
+
+                <h4>Price:</h4>
+                <input id="item1_price" placeholder="Price"/>
+
+                <h4>Variable Cost:</h4>
+                <input id="item1_vc" placeholder="Variable Costs"/>
+
+                <h4>Number of units in bundle:</h4>
+                <input id="item1_units" placeholder="Number of Units"/>
+            </div>
+            <hr>
+            <!-- Item 2 -->
+            <div style="flex: 1;">
+                <h3>Item 2:</h3>
+
+                <h4>Price:</h4>
+                <input id="item2_price" placeholder="Price"/>
+
+                <h4>Variable Cost:</h4>
+                <input id="item2_vc" placeholder="Variable Cost"/>
+
+                <h4>Number of units in bundle:</h4>
+                <input id="item2_units" placeholder="Number of Units"/>
+            </div>
+
+        </div>
+        <hr>
+        <h3>Fixed Costs:</h3>
+        <input id="fixed_costs" placeholder="Fixed Costs"/>
+        <hr>
+        <button onclick="calc()">Calculate Margin</button>
+        <hr>
+        <h3>Margin Analysis:</h3>
+        <p id="result"></p>
+
+        <script>
+            function calc() {
+                // Individual Variables
+                let fixed_costs = parseFloat(document.getElementById("fixed_costs").value);
+                let price1 = parseFloat(document.getElementById("item1_price").value);
+                let vc1 = parseFloat(document.getElementById("item1_vc").value);
+                let price2 = parseFloat(document.getElementById("item2_price").value);
+                let vc2 = parseFloat(document.getElementById("item2_vc").value);
+                let item1_units = parseInt(document.getElementById("item1_units").value);
+                let item2_units = parseInt(document.getElementById("item2_units").value);
+                // Totals
+                let item1_rev = item1_units*price1
+                let item2_rev = item2_units*price2
+                let item1_tc = item1_units*vc1
+                let item2_tc = item2_units*vc2
+                let bundle_price = item1_rev + item2_rev
+                let bundle_vc = item1_tc + item2_tc
+                // Margin and Breakeven
+                let margin = bundle_price - bundle_vc
+                let contribution_margin = margin / (bundle_price) * 100
+                let breakeven = fixed_costs / (bundle_price - bundle_vc);
+
+                document.getElementById("result").innerText = "Margin: " + "$" + margin.toFixed(2) + "\nContribution Margin: " + contribution_margin.toFixed(2) + "%\n" + "You must sell " + breakeven.toFixed(2) + " units just to break even.";
+            }
+        </script>
+    </body>
+</html>
